@@ -13,16 +13,16 @@ class TaskButton extends StatelessWidget {
   final Color iconColor;
 
   TaskButton({
-    this.buttonText = 'Text',
-    this.backgroundColor = const Color(0XFFE2EAFC),
-    this.icon = Icons.ac_unit,
     this.action,
-    this.margin = 20.0,
-    this.width = 100.0,
+    this.icon = Icons.ac_unit,
+    this.iconColor = Colors.black,
+    this.iconSize = 16.0,
+    this.buttonText = 'Text',
     this.fontSize = 16.0,
-    this.iconSize = 14.0,
     this.colorText = const Color(0XFFFFFCF2),
-    this.iconColor = Colors.black
+    this.backgroundColor = const Color(0XFFE2EAFC),
+    this.width = 100.0,
+    this.margin = 20.0,
   });
 
   @override
@@ -32,11 +32,12 @@ class TaskButton extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       child: Container(
+        // ignore: sort_child_properties_last
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget> [
-            Icon(icon, size: 16, color: iconColor),
-            SizedBox(width: 5.0),
+            Icon(icon, size: iconSize, color: iconColor),
+            const SizedBox(width: 5.0),
             Text(
               buttonText,
               style: TextStyle(
