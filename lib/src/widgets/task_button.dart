@@ -20,7 +20,7 @@ class TaskButton extends StatelessWidget {
     this.buttonText = 'Text',
     this.fontSize = 16.0,
     this.colorText = const Color(0XFFFFFCF2),
-    this.backgroundColor = const Color(0XFFE2EAFC),
+    this.backgroundColor = const Color(0XFF2B2D42),
     this.width = 100.0,
     this.margin = 20.0,
   });

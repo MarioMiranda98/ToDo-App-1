@@ -8,4 +8,5 @@ Widget testTaskButton() => TaskButton(
   iconColor: Colors.white,
   backgroundColor: const Color(0XFF2B2D42),
   margin: 15.0,
+  width: 120.0,
 );
