@@ -17,13 +17,15 @@ class TaksCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
 
     return GestureDetector(
       onTap: action,
       child: Container(
         height: 135.0,
-        width: screenSize.width * 0.9,
+        width: screenSize.width * 0.8,
         margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: screenSize.width * 0.05),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: const <BoxShadow>[
@@ -39,27 +41,28 @@ class TaksCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget> [
             _buildText(
-              text: taskTitle, color: Theme.of(context).primaryColor,
-              fontSize: 18.0, fontWeight: FontWeight.bold,
+              text: taskTitle, color: theme.colorScheme.primary,
+              fontSize: 22.0, fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!,
               textAlign: TextAlign.center
             ),
             _buildText(
-              text: taskDescription, color: Colors.black,
-              fontSize: 16.0, fontWeight: FontWeight.w100,
+              text: taskDescription, color: theme.colorScheme.primary,
+              fontSize: 18.0, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
               textAlign: TextAlign.center
             ),
             _buildText(
-              text: 'Estatus: $taskStatus', color: Colors.black,
-              fontSize: 14.0, fontWeight: FontWeight.w100,
+              text: 'Estatus: $taskStatus', color: theme.colorScheme.primary,
+              fontSize: 16.0, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
               textAlign: TextAlign.center
             ),
             Container(
               width: screenSize.width,
               margin: const EdgeInsets.only(right: 20.0, bottom: 10.0),
               alignment: Alignment.bottomRight,
-              child: const Icon(
+              child: Icon(
                 Icons.touch_app,
-                size: 18
+                size: 18.0,
+                color: theme.colorScheme.primary,
               ),
             )
           ],
