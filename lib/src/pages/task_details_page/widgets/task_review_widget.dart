@@ -12,7 +12,7 @@ class TaskReviewWidget extends StatefulWidget {
   @override
   _TaskReviewWidgetState createState() => _TaskReviewWidgetState();
 }
-//TODO: Cambiar cosas del widget por temas 
+
 class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProviderStateMixin {
   bool _containerDirection = false;
   bool _showInfo = false;
