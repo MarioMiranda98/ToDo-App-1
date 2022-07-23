@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:to_do_app_1/src/pages/task_details_page/task_details_page.dart';
+import 'package:to_do_app_1/src/pages/task_details_page/widgets/task_review_widget.dart';
 
 import 'package:to_do_app_1/src/widgets/task_app_bar.dart';
-import 'package:to_do_app_1/src/widgets/task_card.dart';
 import 'package:to_do_app_1/src/widgets/task_drawer.dart';
 
-class HomePage extends StatelessWidget {
+class TaskDetailsPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
+        backgroundColor: theme.colorScheme.background,
+        drawer: TaskDrawer(),
         body: CustomScrollView(
           slivers: [
             TaskAppBar(
@@ -31,26 +31,53 @@ class HomePage extends StatelessWidget {
                 onTap: () => _scaffoldKey.currentState!.openDrawer(),
               ),
             ),
-            _buildFilterTasks(theme),
-            _buildMainList()
+            _buildTaskTitleCard(),
+            _buildTaskShortDescriptionCard(),
+            _buildTaskLongDescriptionCard(),
+            _buildChangeTaskStatus(theme)
           ],
-        ),
-        backgroundColor: theme.colorScheme.background,
-        drawer: TaskDrawer(),
+        )
       ),
     );
   }
 
-  Widget _buildFilterTasks(ThemeData theme) {
+  Widget _buildTaskTitleCard() {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        child: TaskReviewWidget(title: 'Titulo de la tarea', description: 'Titulo'),
+      ),
+    );
+  }
+
+  Widget _buildTaskShortDescriptionCard() {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        child: TaskReviewWidget(title: 'Resumen', description: 'Resumen de la tarea'),
+      ),
+    );
+  }
+
+  Widget _buildTaskLongDescriptionCard() {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        child: TaskReviewWidget(title: 'Descripción General', description: 'Descripción de la tarea'),
+      ),
+    );
+  }
+
+  Widget _buildChangeTaskStatus(ThemeData theme) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 35.0,
+        height: 75.0,
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Ver Por: ',
+                'Estatus: ',
                 style: TextStyle(
                   color: theme.colorScheme.primary,
                   fontSize: theme.primaryTextTheme.headline1?.fontSize
@@ -98,22 +125,6 @@ class HomePage extends StatelessWidget {
           ) ,
         ),
       ),
-    );
-  }
-
-  Widget _buildMainList() {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate( 
-        (BuildContext context, int index) {
-          return TaksCard(
-            action: () => Get.to(() => TaskDetailsPage()),
-            taskDescription: 'Tarea de prueba',
-            taskTitle: 'Pruebas Hardcore',
-            taskStatus: 'Pendiente',
-          );
-        },
-        childCount: 10
-      )
     );
   }
 }

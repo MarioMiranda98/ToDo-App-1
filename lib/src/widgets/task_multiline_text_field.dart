@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TaskTextField extends StatelessWidget {
+class TaskMultilineTextField extends StatelessWidget {
   final String textFieldTitle;
   
-  TaskTextField({
+  TaskMultilineTextField({
     this.textFieldTitle = 'Input Text'
   });
 
@@ -35,6 +35,8 @@ class TaskTextField extends StatelessWidget {
         ),
         style: TextStyle(color: Colors.black, fontSize: screenSize.height * 0.020),
         keyboardType: TextInputType.text,
+        maxLines: null,
+        maxLength: 200,
       ),
     );
   }
