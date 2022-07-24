@@ -126,6 +126,7 @@ class HomePage extends StatelessWidget {
               taskTitle: homePageController.tasks[index].title,
               taskDescription: homePageController.tasks[index].shortDescription,
               taskStatus: homePageController.tasks[index].status,
+              icon: homePageController.tasks[index].idStatus == 1 ? Icons.check : Icons.error
             );
           },
           childCount: homePageController.tasks.length

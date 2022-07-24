@@ -8,7 +8,7 @@ extension ImageModalEnumExtension on ImageModalEnum {
   String get imagePath {
     switch(this) {
       case ImageModalEnum.success:
-        return 'assets/warning/success_icon.png';
+        return 'assets/modal_assets/success_icon.png';
       case ImageModalEnum.failed:
         return 'assets/modal_assets/fail_icon.png';
       case ImageModalEnum.warning:

@@ -10,7 +10,7 @@ void main() {
     GetMaterialApp(
       title: 'ToDo App',
       debugShowCheckedModeBanner: false,
-      theme: ToDoTheme.theme,
+      theme: ToDoTheme.lightTheme,
       home: HomePage()
     )
   );

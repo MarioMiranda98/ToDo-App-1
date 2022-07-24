@@ -4,6 +4,7 @@ class TaksCard extends StatelessWidget {
   final String taskTitle;
   final String taskDescription;
   final String taskStatus;
+  final IconData icon;
   final void Function()? action;
   
   // ignore: prefer_const_constructors_in_immutables
@@ -12,6 +13,7 @@ class TaksCard extends StatelessWidget {
     this.taskDescription = 'No Disponible',
     this.taskStatus = '',
     this.action, 
+    this.icon = Icons.abc_outlined,
     Key? key
   }) : super(key: key);
 
@@ -38,34 +40,36 @@ class TaksCard extends StatelessWidget {
           ],
           borderRadius: BorderRadius.circular(15)
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget> [
-            _buildText(
-              text: taskTitle, color: theme.colorScheme.primary,
-              fontSize: 22.0, fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!,
-              textAlign: TextAlign.center
-            ),
-            _buildText(
-              text: taskDescription, color: theme.colorScheme.primary,
-              fontSize: 18.0, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
-              textAlign: TextAlign.center
-            ),
-            _buildText(
-              text: 'Estatus: $taskStatus', color: theme.colorScheme.primary,
-              fontSize: 16.0, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
-              textAlign: TextAlign.center
-            ),
+        child: Row(
+          children: [
             Container(
-              width: screenSize.width,
-              margin: const EdgeInsets.only(right: 20.0, bottom: 10.0),
-              alignment: Alignment.bottomRight,
+              margin: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Icon(
-                Icons.touch_app,
-                size: 18.0,
+                icon,
+                size: 80.0,
                 color: theme.colorScheme.primary,
               ),
-            )
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget> [
+                _buildText(
+                  text: taskTitle, color: theme.colorScheme.primary,
+                  fontSize: 22.0, fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!,
+                  textAlign: TextAlign.center
+                ),
+                _buildText(
+                  text: taskDescription, color: theme.colorScheme.primary,
+                  fontSize: 18.0, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
+                  textAlign: TextAlign.center
+                ),
+                _buildText(
+                  text: 'Estatus: $taskStatus', color: theme.colorScheme.primary,
+                  fontSize: 16.0, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
+                  textAlign: TextAlign.center
+                ),
+              ],
+            ),
           ],
         ),
       ),

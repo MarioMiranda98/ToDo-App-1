@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ToDoTheme {
-  static get theme {
+  static get lightTheme {
     const primaryTextTheme = TextTheme(
       bodyText1: TextStyle(
         fontSize: 20.0,
