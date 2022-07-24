@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:to_do_app_1/src/pages/task_details_page/task_details_page.dart';
 
+import 'package:to_do_app_1/src/controllers/home_page_controller.dart';
+import 'package:to_do_app_1/src/pages/task_details_page/task_details_page.dart';
 import 'package:to_do_app_1/src/widgets/task_app_bar.dart';
 import 'package:to_do_app_1/src/widgets/task_card.dart';
 import 'package:to_do_app_1/src/widgets/task_drawer.dart';
@@ -12,31 +13,35 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        body: CustomScrollView(
-          slivers: [
-            TaskAppBar(
-              pinned: true,
-              snap: true,
-              floating: true,
-              title: 'ToDo App',
-              leading: GestureDetector(
-                child: Icon(
-                  Icons.menu,
-                  size: 20.0,
-                  color: theme.colorScheme.primary,
+    return GetBuilder<HomePageController>(
+      id: 'home-page-body',
+      init: HomePageController(),
+      builder:  (homePageController) => SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          body: CustomScrollView(
+            slivers: [
+              TaskAppBar(
+                pinned: true,
+                snap: true,
+                floating: true,
+                title: 'ToDo App',
+                leading: GestureDetector(
+                  child: Icon(
+                    Icons.menu,
+                    size: 20.0,
+                    color: theme.colorScheme.primary,
+                  ),
+                  onTap: () => _scaffoldKey.currentState!.openDrawer(),
                 ),
-                onTap: () => _scaffoldKey.currentState!.openDrawer(),
               ),
-            ),
-            _buildFilterTasks(theme),
-            _buildMainList()
-          ],
+              _buildFilterTasks(theme),
+              _buildMainList(homePageController)
+            ],
+          ),
+          backgroundColor: theme.colorScheme.background,
+          drawer: TaskDrawer(),
         ),
-        backgroundColor: theme.colorScheme.background,
-        drawer: TaskDrawer(),
       ),
     );
   }
@@ -101,18 +106,18 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMainList() {
+  Widget _buildMainList(HomePageController controller) {
     return SliverList(
       delegate: SliverChildBuilderDelegate( 
         (BuildContext context, int index) {
           return TaksCard(
             action: () => Get.to(() => TaskDetailsPage()),
-            taskDescription: 'Tarea de prueba',
-            taskTitle: 'Pruebas Hardcore',
-            taskStatus: 'Pendiente',
+            taskTitle: controller.tasks[index].title,
+            taskDescription: controller.tasks[index].shortDescription,
+            taskStatus: controller.tasks[index].status,
           );
         },
-        childCount: 10
+        childCount: controller.tasks.length
       )
     );
   }

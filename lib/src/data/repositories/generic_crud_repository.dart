@@ -29,13 +29,23 @@ class GenericCrudRepository {
     );
   }
 
-  Future<ResponseDataBaseModel> readAll({String tableName = '', String param = ''}) async {
+  Future<ResponseDataBaseModel> readAllWithWhere({String tableName = '', String param = ''}) async {
     final dataBaseRepository = await DataBaseRepository.instance.database;
     final res = await dataBaseRepository.query(
       tableName,
       where: '$param = ?',
       whereArgs: [param]
     );
+
+    return ResponseDataBaseModel(
+      data: res.isNotEmpty ? res : [],
+      isEmpty: res.isNotEmpty ? false : true,
+    );
+  }
+
+  Future<ResponseDataBaseModel> readAll({String tableName = ''}) async {
+    final dataBaseRepository = await DataBaseRepository.instance.database;
+    final res = await dataBaseRepository.query(tableName);
 
     return ResponseDataBaseModel(
       data: res.isNotEmpty ? res : [],
@@ -71,5 +81,11 @@ class GenericCrudRepository {
     final res = await dataBaseRepository.delete(tableName);
 
     return res;
+  }
+
+  Future<dynamic> customRawQuery(String customQuery) async {
+    final dataBaseRepository = await DataBaseRepository.instance.database;
+
+    return await dataBaseRepository.rawQuery(customQuery);
   }
 }

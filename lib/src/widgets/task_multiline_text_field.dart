@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class TaskMultilineTextField extends StatelessWidget {
   final String textFieldTitle;
+  final TextEditingController? controller;
   
   TaskMultilineTextField({
-    this.textFieldTitle = 'Input Text'
+    this.textFieldTitle = 'Input Text',
+    this.controller
   });
 
   @override
@@ -16,10 +18,10 @@ class TaskMultilineTextField extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: TextField(
+        controller: controller,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           isDense: true,
-          //errorText: errorModel.name,
           labelText: textFieldTitle,
           labelStyle:
               TextStyle(

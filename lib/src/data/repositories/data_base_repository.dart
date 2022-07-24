@@ -6,18 +6,18 @@ import 'package:path_provider/path_provider.dart';
 import 'package:to_do_app_1/src/utils/constants/data_base_tables.dart';
 
 class DataBaseRepository {
-  static late Database _dataBase;
+  static Database? _dataBase;
 
   DataBaseRepository._internal();
   static DataBaseRepository get instance => _instance;
   static final DataBaseRepository _instance = DataBaseRepository._internal();
 
   Future<Database> get database async {
-    if(_dataBase != null) return _dataBase;
+    if(_dataBase != null) return _dataBase!;
 
     _dataBase = await initDB();
 
-    return _dataBase;
+    return _dataBase!;
   } 
 
   static Future<Database> initDB() async {

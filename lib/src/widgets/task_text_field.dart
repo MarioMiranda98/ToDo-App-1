@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class TaskTextField extends StatelessWidget {
   final String textFieldTitle;
+  final TextEditingController? controller;
   
   TaskTextField({
-    this.textFieldTitle = 'Input Text'
+    this.textFieldTitle = 'Input Text',
+    this.controller
   });
 
   @override
@@ -17,9 +19,9 @@ class TaskTextField extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: TextField(
         textInputAction: TextInputAction.next,
+        controller: controller,
         decoration: InputDecoration(
           isDense: true,
-          //errorText: errorModel.name,
           labelText: textFieldTitle,
           labelStyle:
               TextStyle(

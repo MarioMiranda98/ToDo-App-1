@@ -34,7 +34,7 @@ class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProvider
     );
 
     _containerHeight = Tween(
-      begin: 70.0,
+      begin: 73.0,
       end: 180.0
     ).animate(
       CurvedAnimation(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'package:to_do_app_1/src/controllers/home_page_controller.dart';
 import 'package:to_do_app_1/src/pages/create_task_page/create_task_page.dart';
 import 'package:to_do_app_1/src/pages/home_page/home_page.dart';
 
@@ -28,7 +30,10 @@ class TaskDrawer extends StatelessWidget {
               color: theme.colorScheme.primary,
               size: 40.0,
             ),
-            onTap: () => Get.offAll(() => HomePage(), transition: Transition.downToUp),
+            onTap: () { 
+              Get.delete<HomePageController>();
+              Get.offAll(() => HomePage(), transition: Transition.downToUp);
+            }
           ),
           Divider(color: theme.colorScheme.primary),
           ListTile(
