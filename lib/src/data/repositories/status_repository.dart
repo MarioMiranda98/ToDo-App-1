@@ -10,7 +10,7 @@ class StatusRepository {
 
   Future<ResponseDataBaseModel> getAllStatus() async {
     final res = await GenericCrudRepository.instance.readAll(
-      tableName: DataBaseTablesEnums.STATUS.tableName
+      tableName: DataBaseTablesEnums.status.tableName
     );
 
     return res;
@@ -18,7 +18,7 @@ class StatusRepository {
 
   Future<ResponseDataBaseModel> getStatusWithoutAll() async {
     final res = await GenericCrudRepository.instance.readFor(
-      tableName: DataBaseTablesEnums.STATUS.tableName,
+      tableName: DataBaseTablesEnums.status.tableName,
       where: 'id != ?',
       args: [3]
     );

@@ -4,10 +4,12 @@ class TaskMultilineTextField extends StatelessWidget {
   final String textFieldTitle;
   final TextEditingController? controller;
   
+  // ignore_for_file: prefer_const_constructors_in_immutables
   TaskMultilineTextField({
     this.textFieldTitle = 'Input Text',
-    this.controller
-  });
+    this.controller,
+    Key? key
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -4,14 +4,17 @@ class TaskReviewWidget extends StatefulWidget {
   final String title;
   final String description;
   final double containerHeight;
-
+  
+  // ignore: prefer_const_constructors_in_immutables
   TaskReviewWidget({
     this.title = 'Titulo',
     this.description = 'Descripción',
-    this.containerHeight = 180.0
-  });
+    this.containerHeight = 180.0,
+    Key? key
+  }): super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _TaskReviewWidgetState createState() => _TaskReviewWidgetState();
 }
 

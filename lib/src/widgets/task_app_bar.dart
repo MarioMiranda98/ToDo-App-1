@@ -8,8 +8,10 @@ class TaskAppBar extends SliverAppBar {
     snap = false,
     floating = false,
     title = '',
-    leading
+    leading,
+    Key? key
   }) : super(
+    key: key,
     pinned: pinned,
     snap: snap,
     floating: floating,

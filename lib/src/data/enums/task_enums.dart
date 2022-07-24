@@ -1,17 +1,17 @@
 enum TaskEnums {
-  EMPTY_TASK_TITLE,
-  EMPTY_SHORT_DESCRIPTION,
-  EMPTY_LONG_DESCRIPTION,
+  emptyTaskTitle,
+  emptyShortDescription,
+  emptyLongDescription,
 }
 
 extension TaskEnumsExtensions on TaskEnums {
   String get taskError {
     switch(this) {
-      case TaskEnums.EMPTY_TASK_TITLE:
+      case TaskEnums.emptyTaskTitle:
         return 'El Título de la tarea no puede estar vacio';
-      case TaskEnums.EMPTY_SHORT_DESCRIPTION:
+      case TaskEnums.emptyShortDescription:
         return 'El Resumen de la tarea no puede estar vacio';
-      case TaskEnums.EMPTY_LONG_DESCRIPTION:
+      case TaskEnums.emptyLongDescription:
         return 'La Descripción de la tarea no puede estar vacia';
       default:
         return '';

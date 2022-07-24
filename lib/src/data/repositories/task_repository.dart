@@ -10,7 +10,7 @@ class TaskRepository {
 
   Future<int> createTask({Map<String, dynamic> body = const {}}) async {
     final res = await GenericCrudRepository.instance.create(
-      tableName: DataBaseTablesEnums.TASK.tableName,
+      tableName: DataBaseTablesEnums.task.tableName,
       body: body
     );
 
@@ -19,7 +19,7 @@ class TaskRepository {
 
   Future<int> updateTask({Map<String, dynamic> body = const {}, List<dynamic> args = const []}) async {
     final res = await GenericCrudRepository.instance.update(
-      tableName: DataBaseTablesEnums.TASK.tableName,
+      tableName: DataBaseTablesEnums.task.tableName,
       body: body,
       where: 'id = ?',
       args: args
@@ -30,7 +30,7 @@ class TaskRepository {
 
   Future<ResponseDataBaseModel> getAllTasks() async {
     final res = await GenericCrudRepository.instance.readAll(
-      tableName: DataBaseTablesEnums.TASK.tableName
+      tableName: DataBaseTablesEnums.task.tableName
     );
 
     return res;
@@ -44,7 +44,7 @@ class TaskRepository {
 
   Future<int> deleteTask(int id) async {
     return await GenericCrudRepository.instance.deleteOne(
-      tableName: DataBaseTablesEnums.TASK.tableName,
+      tableName: DataBaseTablesEnums.task.tableName,
       where: 'id = ?',
       args: [id]
     );

@@ -5,7 +5,7 @@ abstract class Validators {
     title = title.trim();
 
     if(title.isEmpty) {
-      return TaskEnums.EMPTY_TASK_TITLE.taskError;
+      return TaskEnums.emptyTaskTitle.taskError;
     }
 
     return null;
@@ -15,7 +15,7 @@ abstract class Validators {
     shortDescription = shortDescription.trim();
 
     if(shortDescription.isEmpty) { 
-      return TaskEnums.EMPTY_SHORT_DESCRIPTION.taskError;
+      return TaskEnums. emptyShortDescription.taskError;
     }
 
     return null;
@@ -25,7 +25,7 @@ abstract class Validators {
     longDescription = longDescription.trim();
 
     if(longDescription.isEmpty) {
-      return TaskEnums.EMPTY_LONG_DESCRIPTION.taskError;
+      return TaskEnums.emptyLongDescription.taskError;
     }
 
     return null;

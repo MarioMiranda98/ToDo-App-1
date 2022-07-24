@@ -1,14 +1,14 @@
 enum DataBaseTablesEnums {
-  TASK,
-  STATUS
+  task,
+  status
 }
 
 extension DataBaseTablesExtension on DataBaseTablesEnums {
   String get tableName {
     switch(this) {
-      case DataBaseTablesEnums.TASK: 
+      case DataBaseTablesEnums.task: 
         return 'task';
-      case DataBaseTablesEnums.STATUS:
+      case DataBaseTablesEnums.status:
         return 'status';
       default: 
         return '';

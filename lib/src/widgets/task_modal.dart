@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:to_do_app_1/src/widgets/task_button.dart';
 
@@ -8,13 +9,15 @@ class TaskModal extends StatelessWidget {
   final void Function()? action;
   final void Function()? actionCancel;
 
+  // ignore_for_file: prefer_const_constructors_in_immutables
   TaskModal({
     this.assetUrl = '',
     this.modalText = 'Sin Texto',
     this.isConfirm = false,
     this.action,
-    this.actionCancel
-  });
+    this.actionCancel,
+    Key? key
+  }): super(key: key);
 
   @override 
   Widget build(BuildContext context) {

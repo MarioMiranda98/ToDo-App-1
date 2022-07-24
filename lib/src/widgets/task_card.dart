@@ -6,6 +6,7 @@ class TaksCard extends StatelessWidget {
   final String taskStatus;
   final void Function()? action;
   
+  // ignore: prefer_const_constructors_in_immutables
   TaksCard({
     this.taskTitle = 'Sin Titulo',
     this.taskDescription = 'No Disponible',

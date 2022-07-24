@@ -120,7 +120,7 @@ class TaskDetailsPage extends StatelessWidget {
                     },
                     modalText: 'La tarea se ha actualizado con éxito',
                     isConfirm: false,
-                    assetUrl: ImageModalEnum.SUCCESS.imagePath
+                    assetUrl: ImageModalEnum.success.imagePath
                   );
                 } else {
                   await Helpers.showModal(Get.context!, 
@@ -130,7 +130,7 @@ class TaskDetailsPage extends StatelessWidget {
                     },
                     modalText: 'Ha ocurrido un error.',
                     isConfirm: false,
-                    assetUrl: ImageModalEnum.FAILED.imagePath
+                    assetUrl: ImageModalEnum.failed.imagePath
                   );
                 }
               },

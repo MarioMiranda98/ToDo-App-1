@@ -14,6 +14,8 @@ class CreateTaskPage extends StatelessWidget {
   final TextEditingController _taskShortDescriptionController = TextEditingController();
   final TextEditingController _taskLongDescriptionController = TextEditingController();
 
+  CreateTaskPage({ Key? key}): super(key: key);
+
   @override 
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

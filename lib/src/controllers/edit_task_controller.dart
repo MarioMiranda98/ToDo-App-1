@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import 'package:to_do_app_1/src/controllers/home_page_controller.dart';
 import 'package:to_do_app_1/src/data/enums/image_modal_enum.dart';
 import 'package:to_do_app_1/src/data/services/status_service.dart';
 import 'package:to_do_app_1/src/data/services/task_service.dart';
@@ -75,7 +74,7 @@ class EditTaskController extends GetxController {
           },
           modalText: 'La tarea se ha actualizado con éxito',
           isConfirm: false,
-          assetUrl: ImageModalEnum.SUCCESS.imagePath
+          assetUrl: ImageModalEnum.success.imagePath
         );
       } else {
         await Helpers.showModal(Get.context!, 
@@ -85,7 +84,7 @@ class EditTaskController extends GetxController {
           },
           modalText: 'Ha ocurrido un error.',
           isConfirm: false,
-          assetUrl: ImageModalEnum.FAILED.imagePath
+          assetUrl: ImageModalEnum.failed.imagePath
         );
       }
     }

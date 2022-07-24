@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:to_do_app_1/src/controllers/home_page_controller.dart';
-import 'package:to_do_app_1/src/controllers/status_controller.dart';
 import 'package:to_do_app_1/src/pages/create_task_page/create_task_page.dart';
 import 'package:to_do_app_1/src/pages/home_page/home_page.dart';
 
 class TaskDrawer extends StatelessWidget {
   final String currentPage;
 
-  TaskDrawer({this.currentPage = ''});
+  // ignore: prefer_const_constructors_in_immutables
+  TaskDrawer({
+    this.currentPage = '',
+    Key? key
+  }): super(key: key);
 
   @override 
   Widget build(BuildContext context) {

@@ -22,7 +22,7 @@ class DataBaseRepository {
 
   static Future<Database> initDB() async {
     Directory documentDirectory = await getApplicationDocumentsDirectory();
-    final path = join('assets', 'Tasks.db');
+    final path = join(documentDirectory.path, 'Tasks.db');
 
     return await openDatabase(
       path,

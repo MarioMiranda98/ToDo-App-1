@@ -20,8 +20,9 @@ class EditTaskPage extends StatelessWidget {
   final TaskModel? taskModel;
 
   EditTaskPage({
-    this.taskModel
-  });
+    this.taskModel,
+    Key? key
+  }): super(key: key);
 
   @override 
   Widget build(BuildContext context) {
@@ -180,7 +181,7 @@ class EditTaskPage extends StatelessWidget {
                 controller.saveChanges = true;
                 Navigator.pop(context);
               },
-              assetUrl: ImageModalEnum.WARNING.imagePath,
+              assetUrl: ImageModalEnum.warning.imagePath,
               isConfirm: true,
               modalText: '¿Desea guardar los cambios realizados?'
             );

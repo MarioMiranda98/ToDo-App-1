@@ -12,6 +12,7 @@ class TaskButton extends StatelessWidget {
   final Color colorText;
   final Color iconColor;
 
+  // ignore: prefer_const_constructors_in_immutables
   TaskButton({
     this.action,
     this.icon = Icons.ac_unit,
@@ -23,7 +24,8 @@ class TaskButton extends StatelessWidget {
     this.backgroundColor = const Color(0XFF2B2D42),
     this.width = 100.0,
     this.margin = 20.0,
-  });
+    Key? key
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {

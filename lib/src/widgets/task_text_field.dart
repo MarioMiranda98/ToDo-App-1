@@ -1,13 +1,16 @@
+
 import 'package:flutter/material.dart';
 
 class TaskTextField extends StatelessWidget {
   final String textFieldTitle;
   final TextEditingController? controller;
   
+  // ignore_for_file: prefer_const_constructors_in_immutables
   TaskTextField({
     this.textFieldTitle = 'Input Text',
-    this.controller
-  });
+    this.controller,
+    Key? key
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {

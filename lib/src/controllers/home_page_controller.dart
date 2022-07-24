@@ -9,11 +9,6 @@ class HomePageController extends GetxController {
   List<TaskModel> get tasks => _tasks;
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   void onInit() {
     getAllTasks();
     super.onInit();

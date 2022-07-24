@@ -8,9 +8,6 @@ import 'package:to_do_app_1/src/utils/helpers.dart';
 import 'package:to_do_app_1/src/utils/validators.dart';
 
 class CreateTaskController extends GetxController {
-  @override
-  get onDelete => super.onDelete;
-
   Future<void> validateTaskInputs(Map<String, dynamic> taskForm) async {
     bool isValidForm = true;
     List<dynamic> signInValidations = List.empty(growable: true);
@@ -43,7 +40,7 @@ class CreateTaskController extends GetxController {
           },
           modalText: 'La tarea se ha creado con éxito',
           isConfirm: false,
-          assetUrl: ImageModalEnum.SUCCESS.imagePath
+          assetUrl: ImageModalEnum.success.imagePath
         );
       } else {
         await Helpers.showModal(Get.context!, 
@@ -53,7 +50,7 @@ class CreateTaskController extends GetxController {
           },
           modalText: 'Ha ocurrido un error.',
           isConfirm: false,
-          assetUrl: ImageModalEnum.FAILED.imagePath
+          assetUrl: ImageModalEnum.failed.imagePath
         );
       }
     }
