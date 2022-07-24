@@ -51,4 +51,17 @@ class TaskService extends TaskInterface {
 
     return tasks;
   }
+
+  Future<List<TaskModel>?> getTaskByFilter(int status) async {
+    List<TaskModel> tasks = List.empty(growable: true);
+    final res = await TaskRepository.instance.getCustomRawQuery(
+      'SELECT * FROM task t INNER JOIN status s on s.id = t.id_status WHERE id_status = $status'
+    );
+
+    for(Map<String, dynamic> item in res.data) {
+      tasks.add(TaskModel.fromJson(item));
+    }
+
+    return tasks;
+  }
 }

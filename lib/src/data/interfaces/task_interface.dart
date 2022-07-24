@@ -8,4 +8,6 @@ abstract class TaskInterface {
   Future<List<TaskModel>?> getAllTasks();
 
   Future<List<TaskModel>?> getAllTasksCustom();
+
+  Future<List<TaskModel>?> getTaskByFilter(int status);
 }

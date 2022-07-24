@@ -33,6 +33,7 @@ class DataBaseRepository {
         await db.execute(kCreateTaskTable);
         await db.execute(kInsertCompletedStatus);
         await db.execute(kInsertPendingStatus);
+        await db.execute(kInsertAllStatus);
       }
     );
   }

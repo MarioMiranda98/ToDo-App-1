@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:to_do_app_1/src/controllers/create_task_controller.dart';
 
 import 'package:to_do_app_1/src/controllers/home_page_controller.dart';
+import 'package:to_do_app_1/src/controllers/status_controller.dart';
+import 'package:to_do_app_1/src/models/status_model.dart';
 import 'package:to_do_app_1/src/pages/task_details_page/task_details_page.dart';
 import 'package:to_do_app_1/src/widgets/task_app_bar.dart';
 import 'package:to_do_app_1/src/widgets/task_card.dart';
@@ -13,10 +16,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return GetBuilder<HomePageController>(
-      id: 'home-page-body',
-      init: HomePageController(),
-      builder:  (homePageController) => SafeArea(
+    return SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
           body: CustomScrollView(
@@ -36,13 +36,12 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               _buildFilterTasks(theme),
-              _buildMainList(homePageController)
+              _buildMainList()
             ],
           ),
           backgroundColor: theme.colorScheme.background,
           drawer: TaskDrawer(),
         ),
-      ),
     );
   }
 
@@ -62,42 +61,27 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10.0),
-              DropdownButton(
-                dropdownColor: theme.colorScheme.background,
-                icon: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Icon(
-                    Icons.arrow_downward,
-                    size: 20.0,
-                    color: theme.colorScheme.primary,  
-                  ),
-                ),
-                items: [
-                  DropdownMenuItem(
-                    value: 1,
-                    child: Text(
-                      'Completada', 
-                      style: TextStyle(
-                        color: theme.colorScheme.primary,
-                        fontSize: 20.0,
-                        fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!
-                      ) 
+              GetBuilder<StatusController>(
+                id: 'status',
+                init: StatusController(),
+                builder: (statusController) => DropdownButton(
+                  value: statusController.status,
+                  dropdownColor: theme.colorScheme.background,
+                  items: _buildItems(statusController), 
+                  onChanged: (dynamic value) { 
+                    final HomePageController createTaskController = Get.put(HomePageController());
+                    createTaskController.refreshTaskList(value);
+                    statusController.status = value; 
+                  },
+                  icon: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Icon(
+                      Icons.arrow_downward,
+                      size: 20.0,
+                      color: theme.colorScheme.primary,  
                     ),
                   ),
-                  DropdownMenuItem(
-                    value: 2,
-                    child: Text(
-                      'Pendiente',
-                       style: TextStyle(
-                        color: theme.colorScheme.primary,
-                        fontSize: 20.0,
-                        fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!
-                      ) 
-                    ),
-                  )
-                ], 
-                onChanged: (value) => print('Cambio: $value'),
-                value: 1,
+                )
               )
             ],
           ) ,
@@ -106,18 +90,42 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMainList(HomePageController controller) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate( 
-        (BuildContext context, int index) {
-          return TaksCard(
-            action: () => Get.to(() => TaskDetailsPage()),
-            taskTitle: controller.tasks[index].title,
-            taskDescription: controller.tasks[index].shortDescription,
-            taskStatus: controller.tasks[index].status,
-          );
-        },
-        childCount: controller.tasks.length
+  List<DropdownMenuItem> _buildItems(StatusController controller) {
+    List<DropdownMenuItem> items = List.empty(growable: true);
+
+    for(StatusModel element in controller.statusList) {
+      items.add(DropdownMenuItem(
+        value: element.id,
+        child: Text(
+          element.status,
+          style: TextStyle(
+            color: Theme.of(Get.context!).colorScheme.primary,
+            fontWeight: FontWeight.w700,
+            fontSize: 20.0
+          ),
+        ),
+      ));
+    }
+
+    return items;
+  }
+
+  Widget _buildMainList() {
+    return GetBuilder<HomePageController>(
+      id: 'home-page-body',
+      init: HomePageController(),
+      builder:  (homePageController) => SliverList(
+        delegate: SliverChildBuilderDelegate( 
+          (BuildContext context, int index) {
+            return TaksCard(
+              action: () => Get.to(() => TaskDetailsPage()),
+              taskTitle: homePageController.tasks[index].title,
+              taskDescription: homePageController.tasks[index].shortDescription,
+              taskStatus: homePageController.tasks[index].status,
+            );
+          },
+          childCount: homePageController.tasks.length
+        )
       )
     );
   }
