@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:to_do_app_1/src/controllers/create_task_controller.dart';
 
 import 'package:to_do_app_1/src/controllers/home_page_controller.dart';
 import 'package:to_do_app_1/src/controllers/status_controller.dart';
@@ -10,6 +9,7 @@ import 'package:to_do_app_1/src/widgets/task_app_bar.dart';
 import 'package:to_do_app_1/src/widgets/task_card.dart';
 import 'package:to_do_app_1/src/widgets/task_drawer.dart';
 
+// ignore: use_key_in_widget_constructors
 class HomePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -69,8 +69,9 @@ class HomePage extends StatelessWidget {
                   dropdownColor: theme.colorScheme.background,
                   items: _buildItems(statusController), 
                   onChanged: (dynamic value) { 
-                    final HomePageController createTaskController = Get.put(HomePageController());
-                    createTaskController.refreshTaskList(value);
+                    final HomePageController homePageController = Get.put(HomePageController());
+                    (value == 3) ? homePageController.getAllTasks()
+                    : homePageController.refreshTaskList(value);
                     statusController.status = value; 
                   },
                   icon: Container(
@@ -118,7 +119,9 @@ class HomePage extends StatelessWidget {
         delegate: SliverChildBuilderDelegate( 
           (BuildContext context, int index) {
             return TaksCard(
-              action: () => Get.to(() => TaskDetailsPage()),
+              action: () {
+                Get.to(() => TaskDetailsPage(taskModel: homePageController.tasks[index]));
+              },
               taskTitle: homePageController.tasks[index].title,
               taskDescription: homePageController.tasks[index].shortDescription,
               taskStatus: homePageController.tasks[index].status,

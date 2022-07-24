@@ -11,9 +11,9 @@ const kCreateTaskTable =
 
 const kCreateStatusTable = 
   'CREATE TABLE status ('
-  ' id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,'
+  ' id INTEGER NOT NULL PRIMARY KEY,'
   ' status VARCHAR(30) NOT NULL)';
 
-const kInsertCompletedStatus = 'INSERT INTO status VALUES(1, "Completada")';
-const kInsertPendingStatus = 'INSERT INTO status VALUES(2, "Pendiente")';
-const kInsertAllStatus = 'INSERT INTO status VALUES(3, "Todas")';
+const kInsertCompletedStatus = "INSERT INTO status VALUES(1, 'Completada')";
+const kInsertPendingStatus = "INSERT INTO status VALUES(2, 'Pendiente')";
+const kInsertAllStatus = "INSERT INTO status VALUES(3, 'Todo')";

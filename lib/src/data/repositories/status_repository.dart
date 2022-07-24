@@ -15,4 +15,14 @@ class StatusRepository {
 
     return res;
   }
+
+  Future<ResponseDataBaseModel> getStatusWithoutAll() async {
+    final res = await GenericCrudRepository.instance.readFor(
+      tableName: DataBaseTablesEnums.STATUS.tableName,
+      where: 'id != ?',
+      args: [3]
+    );
+
+    return res;
+  }
 }

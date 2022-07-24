@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class TaskReviewWidget extends StatefulWidget {
   final String title;
   final String description;
-  
+  final double containerHeight;
+
   TaskReviewWidget({
     this.title = 'Titulo',
-    this.description = 'Descripción'
+    this.description = 'Descripción',
+    this.containerHeight = 180.0
   });
 
   @override
@@ -35,7 +37,7 @@ class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProvider
 
     _containerHeight = Tween(
       begin: 73.0,
-      end: 180.0
+      end: widget.containerHeight
     ).animate(
       CurvedAnimation(
         parent: _controller, 
@@ -151,7 +153,7 @@ class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProvider
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 16.0,
+              fontSize: 18.0,
               fontWeight: FontWeight.w500,
               color: theme.colorScheme.primary
             ),

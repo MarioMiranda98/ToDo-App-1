@@ -1,15 +1,45 @@
 import 'package:get/get.dart';
 
+import 'package:to_do_app_1/src/controllers/home_page_controller.dart';
 import 'package:to_do_app_1/src/data/enums/image_modal_enum.dart';
+import 'package:to_do_app_1/src/data/services/status_service.dart';
 import 'package:to_do_app_1/src/data/services/task_service.dart';
+import 'package:to_do_app_1/src/models/status_model.dart';
 import 'package:to_do_app_1/src/models/task_model.dart';
 import 'package:to_do_app_1/src/pages/home_page/home_page.dart';
 import 'package:to_do_app_1/src/utils/helpers.dart';
 import 'package:to_do_app_1/src/utils/validators.dart';
 
-class CreateTaskController extends GetxController {
+class EditTaskController extends GetxController {
+  final List<StatusModel> _statusList = List.empty(growable: true);
+  int _status = 3;
+  bool _saveChanges = false;
+
+  List<StatusModel> get statusList => _statusList;
+  int get status => _status;
+  bool get saveChanges => _saveChanges;
+
+  set status(value) {
+    _status = value;
+    update(['edit-fields']);
+  }
+
+  set saveChanges(value) {
+    _saveChanges = value; 
+  }
+
   @override
-  get onDelete => super.onDelete;
+  void onInit() {
+    _getStatusWithoutAll();
+    super.onInit();
+  }
+
+  Future<void> _getStatusWithoutAll() async {
+    final res = await StatusService.instance.getStatusWithoutAll();
+    
+    _statusList.addAll(res ?? []);
+    update(['edit-fields']);
+  }
 
   Future<void> validateTaskInputs(Map<String, dynamic> taskForm) async {
     bool isValidForm = true;
@@ -32,22 +62,28 @@ class CreateTaskController extends GetxController {
 
     if(isValidForm) { 
       final body = TaskModel.fromJson(taskForm);
-      final res = await TaskService.instance.createTask(
-        body: body.toJsonWithoutId()
+      final res = await TaskService.instance.updateTask(
+        body: body.toJson(),
+        args: [1]
       );
+
+      print(body.toJson());
+      print(res);
       if(res > 0) {
         await Helpers.showModal(Get.context!, 
           action: () {
-            Get.offAll(() => HomePage(), transition: Transition.upToDown);
+            Get.deleteAll();
+            Get.offAll(() => HomePage(), transition: Transition.fadeIn);
           },
-          modalText: 'La tarea se ha creado con éxito',
+          modalText: 'La tarea se ha actualizado con éxito',
           isConfirm: false,
           assetUrl: ImageModalEnum.SUCCESS.imagePath
         );
       } else {
         await Helpers.showModal(Get.context!, 
           action: () {
-            Get.offAll(() => HomePage(), transition: Transition.upToDown);
+            Get.deleteAll();
+            Get.offAll(() => HomePage(), transition: Transition.fadeIn);
           },
           modalText: 'Ha ocurrido un error.',
           isConfirm: false,

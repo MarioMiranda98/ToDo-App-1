@@ -29,20 +29,6 @@ class GenericCrudRepository {
     );
   }
 
-  Future<ResponseDataBaseModel> readAllWithWhere({String tableName = '', String param = ''}) async {
-    final dataBaseRepository = await DataBaseRepository.instance.database;
-    final res = await dataBaseRepository.query(
-      tableName,
-      where: '$param = ?',
-      whereArgs: [param]
-    );
-
-    return ResponseDataBaseModel(
-      data: res.isNotEmpty ? res : [],
-      isEmpty: res.isNotEmpty ? false : true,
-    );
-  }
-
   Future<ResponseDataBaseModel> readAll({String tableName = ''}) async {
     final dataBaseRepository = await DataBaseRepository.instance.database;
     final res = await dataBaseRepository.query(tableName);

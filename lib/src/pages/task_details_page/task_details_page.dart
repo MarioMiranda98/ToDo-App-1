@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:to_do_app_1/src/pages/task_details_page/widgets/task_review_widget.dart';
 
+import 'package:to_do_app_1/src/models/task_model.dart';
+import 'package:to_do_app_1/src/pages/task_details_page/widgets/task_review_widget.dart';
 import 'package:to_do_app_1/src/widgets/task_app_bar.dart';
+import 'package:to_do_app_1/src/widgets/task_button.dart';
 import 'package:to_do_app_1/src/widgets/task_drawer.dart';
 
+// ignore_for_file: use_key_in_widget_constructors
 class TaskDetailsPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final TaskModel? taskModel;
+
+  TaskDetailsPage({
+    this.taskModel
+  });
 
   @override 
   Widget build(BuildContext context) {
@@ -34,7 +42,8 @@ class TaskDetailsPage extends StatelessWidget {
             _buildTaskTitleCard(),
             _buildTaskShortDescriptionCard(),
             _buildTaskLongDescriptionCard(),
-            _buildChangeTaskStatus(theme)
+            _buildStatusCard(),
+            _buildRowButtons(theme)
           ],
         )
       ),
@@ -45,7 +54,7 @@ class TaskDetailsPage extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-        child: TaskReviewWidget(title: 'Titulo de la tarea', description: 'Titulo'),
+        child: TaskReviewWidget(title: 'Titulo de la tarea', description: taskModel!.title, containerHeight: 110.0),
       ),
     );
   }
@@ -54,7 +63,7 @@ class TaskDetailsPage extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-        child: TaskReviewWidget(title: 'Resumen', description: 'Resumen de la tarea'),
+        child: TaskReviewWidget(title: 'Resumen', description: taskModel!.shortDescription, containerHeight: 120.0),
       ),
     );
   }
@@ -63,66 +72,54 @@ class TaskDetailsPage extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-        child: TaskReviewWidget(title: 'Descripción General', description: 'Descripción de la tarea'),
+        child: TaskReviewWidget(title: 'Descripción General', description: taskModel!.longDescription, containerHeight: 180.0),
       ),
     );
   }
 
-  Widget _buildChangeTaskStatus(ThemeData theme) {
+  Widget _buildStatusCard() {
     return SliverToBoxAdapter(
-      child: SizedBox(
-        height: 75.0,
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Estatus: ',
-                style: TextStyle(
-                  color: theme.colorScheme.primary,
-                  fontSize: theme.primaryTextTheme.headline1?.fontSize
-                ),
-              ),
-              const SizedBox(width: 10.0),
-              DropdownButton(
-                dropdownColor: theme.colorScheme.background,
-                icon: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Icon(
-                    Icons.arrow_downward,
-                    size: 20.0,
-                    color: theme.colorScheme.primary,  
-                  ),
-                ),
-                items: [
-                  DropdownMenuItem(
-                    value: 1,
-                    child: Text(
-                      'Completada', 
-                      style: TextStyle(
-                        color: theme.colorScheme.primary,
-                        fontSize: 20.0,
-                        fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!
-                      ) 
-                    ),
-                  ),
-                  DropdownMenuItem(
-                    value: 2,
-                    child: Text(
-                      'Pendiente',
-                       style: TextStyle(
-                        color: theme.colorScheme.primary,
-                        fontSize: 20.0,
-                        fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!
-                      ) 
-                    ),
-                  )
-                ], 
-                onChanged: (value) => print('Cambio: $value'),
-                value: 1,
-              )
-            ],
-          ) ,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        child: TaskReviewWidget(title: 'Estatus', description: taskModel!.status, containerHeight: 110.0),
+      ),
+    );
+  }
+
+  Widget _buildRowButtons(ThemeData theme) {
+    return SliverToBoxAdapter(
+      child: Container(
+        width: double.infinity,
+        margin: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 5.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget> [
+            TaskButton(
+              backgroundColor: theme.colorScheme.error,
+              buttonText: 'Eliminar',
+              colorText: theme.colorScheme.background,
+              icon: Icons.delete,
+              iconSize: 24.0,
+              iconColor: theme.colorScheme.background,
+              fontSize: 24.0,
+              margin: 5.0,
+              action: () => print('Eliminar'),
+              width: 160.0,
+            ),
+            TaskButton(
+              backgroundColor: theme.colorScheme.primaryContainer,
+              buttonText: 'Editar',
+              colorText: theme.colorScheme.background,
+              icon: Icons.edit,
+              iconSize: 24.0,
+              iconColor: theme.colorScheme.background,
+              fontSize: 24.0,
+              margin: 5.0,
+              //action: () => Get.to(() => EditTaskPage(taskModel: taskModel), transition: Transition.leftToRight),
+              action: () => print(taskModel!.id),
+              width: 160.0,
+            )
+          ],
         ),
       ),
     );

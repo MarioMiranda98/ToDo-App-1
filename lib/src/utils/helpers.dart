@@ -11,6 +11,7 @@ class Helpers {
             fontFamily: 'Baloo',
             color: Theme.of(Get.context!).colorScheme.error,
             fontWeight: FontWeight.w700,
+            fontSize: 24.0
           ),
         ),
         messageText: Text(
@@ -18,6 +19,7 @@ class Helpers {
           style: TextStyle(
             fontFamily: 'Baloo',
             color: Theme.of(Get.context!).colorScheme.primary,
+            fontSize: 20.0
           ),
         ),
         backgroundColor: Colors.grey.withOpacity(0.4),

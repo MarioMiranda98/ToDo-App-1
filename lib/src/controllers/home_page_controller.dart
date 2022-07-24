@@ -15,11 +15,11 @@ class HomePageController extends GetxController {
 
   @override
   void onInit() {
-    _getAllTasks();
+    getAllTasks();
     super.onInit();
   }
 
-  Future<void> _getAllTasks() async {
+  Future<void> getAllTasks() async {
     final res = await TaskService.instance.getAllTasksCustom();
     _tasks.addAll(res ?? []);
 

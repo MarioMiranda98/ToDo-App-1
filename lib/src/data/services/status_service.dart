@@ -20,4 +20,18 @@ class StatusService extends StatusInterface {
 
     return status;
   }
+  
+  @override
+  Future<List<StatusModel>?> getStatusWithoutAll() async {
+    List<StatusModel> status = List.empty(growable: true);
+    final res = await StatusRepository.instance.getStatusWithoutAll();
+  
+    if(res.isEmpty) return null;
+
+    for(Map<String, dynamic> item in res.data) {
+      status.add(StatusModel.fromJson(item));
+    }
+
+    return status;
+  }
 }

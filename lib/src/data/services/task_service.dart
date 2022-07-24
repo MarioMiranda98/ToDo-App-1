@@ -28,7 +28,7 @@ class TaskService extends TaskInterface {
   Future<List<TaskModel>?> getAllTasksCustom() async {
     List<TaskModel> tasks = List.empty(growable: true);
     final res = await TaskRepository.instance.getCustomRawQuery(
-      'SELECT * FROM task t INNER JOIN status s on s.id = t.id_status'
+      'SELECT t.*, s.status FROM task t INNER JOIN status s on s.id = t.id_status'
     );
 
     for(Map<String, dynamic> item in res.data) {
@@ -52,10 +52,11 @@ class TaskService extends TaskInterface {
     return tasks;
   }
 
+  @override
   Future<List<TaskModel>?> getTaskByFilter(int status) async {
     List<TaskModel> tasks = List.empty(growable: true);
     final res = await TaskRepository.instance.getCustomRawQuery(
-      'SELECT * FROM task t INNER JOIN status s on s.id = t.id_status WHERE id_status = $status'
+      'SELECT t.*, s.status FROM task t INNER JOIN status s on s.id = t.id_status WHERE t.id_status = $status'
     );
 
     for(Map<String, dynamic> item in res.data) {

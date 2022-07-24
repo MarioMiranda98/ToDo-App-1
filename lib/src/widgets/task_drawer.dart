@@ -33,7 +33,6 @@ class TaskDrawer extends StatelessWidget {
             ),
             onTap: () { 
               Get.delete<HomePageController>();
-              Get.delete<StatusController>();
               Get.offAll(() => HomePage(), transition: Transition.downToUp);
             }
           ),
@@ -51,7 +50,10 @@ class TaskDrawer extends StatelessWidget {
               color: theme.colorScheme.primary,
               size: 40.0,
             ),
-            onTap: () => Get.to(() => CreateTaskPage(), transition: Transition.downToUp),
+            onTap: () {
+              Get.delete<HomePageController>();
+              Get.to(() => CreateTaskPage(), transition: Transition.downToUp);
+            },
           ),
           Divider(color: theme.colorScheme.primary),
         ],
