@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final screenSize = MediaQuery.of(context).size;
     Get.put(HomePageController(), permanent: true);
     return SafeArea(
         child: Scaffold(
@@ -28,15 +29,18 @@ class HomePage extends StatelessWidget {
                 floating: true,
                 title: 'ToDo App',
                 leading: GestureDetector(
-                  child: Icon(
-                    Icons.menu,
-                    size: 20.0,
-                    color: theme.colorScheme.primary,
+                  child: Container(
+                    margin: const EdgeInsets.all(5.0),
+                    child: Icon(
+                      Icons.menu,
+                      size: screenSize.width * 0.1,
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
                   onTap: () => _scaffoldKey.currentState!.openDrawer(),
                 ),
               ),
-              _buildFilterTasks(theme),
+              _buildFilterTasks(theme, screenSize),
               _buildMainList()
             ],
           ),
@@ -46,7 +50,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildFilterTasks(ThemeData theme) {
+  Widget _buildFilterTasks(ThemeData theme, Size screenSize) {
     return SliverToBoxAdapter(
       child: SizedBox(
         height: 35.0,
@@ -68,7 +72,7 @@ class HomePage extends StatelessWidget {
                 builder: (statusController) => DropdownButton(
                   value: statusController.status,
                   dropdownColor: theme.colorScheme.background,
-                  items: _buildItems(statusController), 
+                  items: _buildItems(statusController, screenSize), 
                   onChanged: (dynamic value) { 
                     final HomePageController homePageController = Get.put(HomePageController());
                     (value == 3) ? homePageController.getAllTasks()
@@ -79,7 +83,7 @@ class HomePage extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Icon(
                       Icons.arrow_downward,
-                      size: 20.0,
+                      size: screenSize.width * 0.07,
                       color: theme.colorScheme.primary,  
                     ),
                   ),
@@ -92,7 +96,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  List<DropdownMenuItem> _buildItems(StatusController controller) {
+  List<DropdownMenuItem> _buildItems(StatusController controller, Size screenSize) {
     List<DropdownMenuItem> items = List.empty(growable: true);
 
     for(StatusModel element in controller.statusList) {
@@ -103,7 +107,7 @@ class HomePage extends StatelessWidget {
           style: TextStyle(
             color: Theme.of(Get.context!).colorScheme.primary,
             fontWeight: FontWeight.w700,
-            fontSize: 20.0
+            fontSize: screenSize.width * 0.07
           ),
         ),
       ));

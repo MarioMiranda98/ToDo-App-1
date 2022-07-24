@@ -25,7 +25,7 @@ class TaksCard extends StatelessWidget {
     return GestureDetector(
       onTap: action,
       child: Container(
-        height: 135.0,
+        height: screenSize.height * 0.2,
         width: screenSize.width * 0.8,
         margin: EdgeInsets.symmetric(vertical: 5.0, horizontal: screenSize.width * 0.05),
         padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -43,10 +43,10 @@ class TaksCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40.0),
+              margin: const EdgeInsets.only(left: 40.0),
               child: Icon(
                 icon,
-                size: 80.0,
+                size: 50.0,
                 color: theme.colorScheme.primary,
               ),
             ),
@@ -55,18 +55,18 @@ class TaksCard extends StatelessWidget {
               children: <Widget> [
                 _buildText(
                   text: taskTitle, color: theme.colorScheme.primary,
-                  fontSize: 22.0, fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!,
-                  textAlign: TextAlign.center
+                  fontSize: screenSize.width * 0.075, fontWeight: theme.primaryTextTheme.bodyText2!.fontWeight!,
+                  textAlign: TextAlign.center, screenSize: screenSize
                 ),
                 _buildText(
                   text: taskDescription, color: theme.colorScheme.primary,
-                  fontSize: 18.0, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
-                  textAlign: TextAlign.center
+                  fontSize: screenSize.width * 0.05, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
+                  textAlign: TextAlign.center, screenSize: screenSize
                 ),
                 _buildText(
                   text: 'Estatus: $taskStatus', color: theme.colorScheme.primary,
-                  fontSize: 16.0, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
-                  textAlign: TextAlign.center
+                  fontSize: screenSize.width * 0.05, fontWeight: theme.primaryTextTheme.bodyText1!.fontWeight!,
+                  textAlign: TextAlign.center, screenSize: screenSize
                 ),
               ],
             ),
@@ -77,14 +77,20 @@ class TaksCard extends StatelessWidget {
   }
 
   Widget _buildText({String text = '', double fontSize = 5.0, FontWeight fontWeight = FontWeight.normal,
-    Color color = Colors.black, TextAlign textAlign = TextAlign.left}) => 
-    Text(
-      text, 
-      style: TextStyle(
-        fontSize: fontSize,
-        color: color,
-        fontWeight: fontWeight
+    Color color = Colors.black, TextAlign textAlign = TextAlign.left, Size screenSize = const Size(0.0, 0.0)}) => 
+    Flexible(
+      child: SizedBox(
+        width: screenSize.width * 0.67,
+        child: Text(
+          text, 
+          style: TextStyle(
+            fontSize: fontSize,
+            color: color,
+            fontWeight: fontWeight
+          ),
+          overflow: TextOverflow.ellipsis,
+          textAlign: textAlign,
+        ),
       ),
-      textAlign: textAlign,
     );
 }

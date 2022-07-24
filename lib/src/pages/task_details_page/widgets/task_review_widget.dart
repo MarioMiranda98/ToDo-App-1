@@ -39,7 +39,7 @@ class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProvider
     );
 
     _containerHeight = Tween(
-      begin: 73.0,
+      begin: 75.0,
       end: widget.containerHeight
     ).animate(
       CurvedAnimation(
@@ -121,7 +121,7 @@ class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProvider
                     Text(
                       widget.title,
                       style: TextStyle(
-                        fontSize: 24.0,
+                        fontSize: size.width * 0.07,
                         fontWeight: FontWeight.w600,
                         color: theme.colorScheme.primary
                       ),
@@ -137,7 +137,7 @@ class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProvider
                   ],
                 ),
                 SizedBox(height: _showInfo ? 10.0 : 0.0),
-                !_showInfo ? Container() : _buildText(widget.description, theme),
+                !_showInfo ? Container() : _buildText(widget.description, theme, size),
                 SizedBox(height: _showInfo ? 10.0 : 0.0),
               ],
             ),
@@ -147,7 +147,7 @@ class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProvider
     );
   }
 
-  Widget _buildText(String text, ThemeData theme) {
+  Widget _buildText(String text, ThemeData theme, Size screenSize) {
     return AnimatedBuilder(
       animation: _textController,
       builder: (BuildContext context, Widget? child) {
@@ -156,7 +156,7 @@ class _TaskReviewWidgetState extends State<TaskReviewWidget> with TickerProvider
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 18.0,
+              fontSize: screenSize.width * 0.055,
               fontWeight: FontWeight.w500,
               color: theme.colorScheme.primary
             ),

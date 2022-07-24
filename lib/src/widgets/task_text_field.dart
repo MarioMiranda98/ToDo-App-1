@@ -28,8 +28,9 @@ class TaskTextField extends StatelessWidget {
           labelText: textFieldTitle,
           labelStyle:
               TextStyle(
-                color:  theme.colorScheme.primary,
-                fontSize: 26.0
+                color:  theme.colorScheme.primaryContainer,
+                fontSize: screenSize.width * 0.065,
+                fontWeight: FontWeight.bold
               ),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(
@@ -38,8 +39,9 @@ class TaskTextField extends StatelessWidget {
             ),
           ),
         ),
-        style: TextStyle(color: Colors.black, fontSize: screenSize.height * 0.020),
+        style: TextStyle(color: Colors.black, fontSize: screenSize.height * 0.025),
         keyboardType: TextInputType.text,
+        maxLength: 50,
       ),
     );
   }

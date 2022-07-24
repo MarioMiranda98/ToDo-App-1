@@ -22,7 +22,8 @@ class TaskAppBar extends SliverAppBar {
         title, 
         style: TextStyle(
           color: Theme.of(Get.context!).colorScheme.secondary,
-          fontWeight: FontWeight.bold
+          fontWeight: FontWeight.bold,
+          fontSize: Get.width * 0.1
         )
       ),
       background: const Image(

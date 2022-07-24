@@ -19,6 +19,8 @@ class CreateTaskPage extends StatelessWidget {
   @override 
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final screenSize = MediaQuery.of(context).size;
+
     return GetBuilder<CreateTaskController>(
       init: CreateTaskController(),
       builder: (createTaskController) => SafeArea(
@@ -36,7 +38,7 @@ class CreateTaskPage extends StatelessWidget {
                 leading: GestureDetector(
                   child: Icon(
                     Icons.menu,
-                    size: 20.0,
+                    size: screenSize.width * 0.1,
                     color: theme.colorScheme.primary,
                   ),
                   onTap: () => _scaffoldKey.currentState!.openDrawer(),

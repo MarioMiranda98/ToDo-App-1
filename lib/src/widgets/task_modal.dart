@@ -26,7 +26,7 @@ class TaskModal extends StatelessWidget {
     return Container(
       height: 150.0,
       width: screenSize.width * 0.9,
-      margin: EdgeInsets.symmetric(horizontal: screenSize.width * 0.05, vertical: 10.0),
+      margin: EdgeInsets.symmetric(horizontal: screenSize.width * 0.05, vertical: screenSize.height * 0.25),
       padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(17.5),
@@ -42,47 +42,73 @@ class TaskModal extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget> [
-          _buildImage(assetUrl: assetUrl),
-          _buildModalText(modalText: modalText, theme: theme),
+          _buildImage(assetUrl: assetUrl, screenSize: screenSize),
+          _buildModalText(modalText: modalText, theme: theme, screenSize: screenSize),
           (isConfirm ? 
-            _buildTwoButtonsRow(context, theme) 
-            : _buildButton(context, theme)
+            _buildTwoButtonsRow(context, theme, screenSize) 
+            : _buildButton(context, theme, screenSize)
           )
         ],
       ),
     );
   }
 
-  Widget _buildImage({String assetUrl = ''}) =>
+  Widget _buildImage({String assetUrl = '', Size screenSize = const Size(0.0, 0.0)}) =>
     Image(
       image: AssetImage(assetUrl),
-      height: 50.0,
-      width: 50.0,
+      height: screenSize.width * 0.3,
+      width: screenSize.width * 0.3,
     );
 
-  Widget _buildModalText({String modalText = 'Sin Descripción', ThemeData? theme}) => 
+  Widget _buildModalText({String modalText = 'Sin Descripción', ThemeData? theme, Size screenSize = const Size(0.0, 0.0)}) => 
     Text(
       modalText,
       style: TextStyle(
-        fontSize: 18.0,
+        fontSize: screenSize.width * 0.05,
         fontWeight: FontWeight.w500,
         color: theme!.colorScheme.primary
       ),
+      textAlign: TextAlign.center,
     );
 
-  Widget _buildTwoButtonsRow(BuildContext context, ThemeData? theme) {
+  Widget _buildTwoButtonsRow(BuildContext context, ThemeData? theme, Size screenSize) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget> [
-        TaskButton(icon: Icons.check, buttonText: 'Confirmar',
-          width: 140.0, iconColor: theme!.colorScheme.background, margin: 15.0, action: action),
-        TaskButton(icon: Icons.backspace_sharp, buttonText: 'Cancelar',
-          width: 140.0, iconColor: theme.colorScheme.background, margin: 15.0, action: actionCancel)
+        TaskButton(
+          icon: Icons.check, 
+          buttonText: 'Confirmar', 
+          iconColor: theme!.colorScheme.background, 
+          margin: 15.0, 
+          action: action,
+          width: screenSize.width * 0.35, 
+          fontSize: screenSize.width * 0.04, 
+          iconSize: screenSize.width * 0.08,
+        ),
+        TaskButton(
+          icon: Icons.backspace_sharp, 
+          buttonText: 'Cancelar',
+          iconColor: theme.colorScheme.background, 
+          margin: 15.0, 
+          action: actionCancel, 
+          backgroundColor: theme.colorScheme.error,
+          width: screenSize.width * 0.35, 
+          fontSize: screenSize.width * 0.04, 
+          iconSize: screenSize.width * 0.08,
+        )
       ],
     );
   }
 
-  Widget _buildButton(BuildContext context, ThemeData? theme) => 
-    TaskButton(icon: Icons.check, buttonText: 'Confirmar', 
-      width: 140.0, iconColor: theme!.colorScheme.background, action: action);
+  Widget _buildButton(BuildContext context, ThemeData? theme, Size screenSize) => 
+    TaskButton(
+      icon: Icons.check, 
+      buttonText: 'Aceptar', 
+      iconColor: theme!.colorScheme.background, 
+      margin: 15.0, 
+      action: action,
+      width: screenSize.width * 0.35, 
+      fontSize: screenSize.width * 0.04, 
+      iconSize: screenSize.width * 0.08
+    );
 }

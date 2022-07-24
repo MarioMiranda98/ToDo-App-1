@@ -12,7 +12,7 @@ class ToDoTheme {
         fontWeight: FontWeight.bold
       ),
       headline1: TextStyle(
-        fontSize: 24.0,
+        fontSize: 26.0,
         fontWeight: FontWeight.bold
       )
     );
@@ -20,7 +20,7 @@ class ToDoTheme {
     return ThemeData(
       colorScheme: const ColorScheme(
         primary: Color(0XFF2B2D42),
-        primaryContainer: Color(0XFF147F91),
+        primaryContainer: Color(0XFF03045E),
         background: Color(0XFFFFFCF2), 
         brightness: Brightness.dark, 
         error: Color(0XFFEF233C), 

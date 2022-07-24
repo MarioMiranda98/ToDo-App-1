@@ -24,6 +24,8 @@ class TaskDetailsPage extends StatelessWidget {
   @override 
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final screenSize = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
@@ -39,60 +41,60 @@ class TaskDetailsPage extends StatelessWidget {
               leading: GestureDetector(
                 child: Icon(
                   Icons.menu,
-                  size: 20.0,
+                  size: screenSize.width * 0.1,
                   color: theme.colorScheme.primary,
                 ),
                 onTap: () => _scaffoldKey.currentState!.openDrawer(),
               ),
             ),
-            _buildTaskTitleCard(),
-            _buildTaskShortDescriptionCard(),
-            _buildTaskLongDescriptionCard(),
-            _buildStatusCard(),
-            _buildRowButtons(theme)
+            _buildTaskTitleCard(screenSize),
+            _buildTaskShortDescriptionCard(screenSize),
+            _buildTaskLongDescriptionCard(screenSize),
+            _buildStatusCard(screenSize),
+            _buildRowButtons(theme, screenSize)
           ],
         )
       ),
     );
   }
 
-  Widget _buildTaskTitleCard() {
+  Widget _buildTaskTitleCard(Size screenSize) {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-        child: TaskReviewWidget(title: 'Titulo de la tarea', description: taskModel!.title, containerHeight: 110.0),
+        child: TaskReviewWidget(title: 'Titulo de la tarea', description: taskModel!.title, containerHeight: screenSize.height * 0.16),
       ),
     );
   }
 
-  Widget _buildTaskShortDescriptionCard() {
+  Widget _buildTaskShortDescriptionCard(Size screenSize) {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-        child: TaskReviewWidget(title: 'Resumen', description: taskModel!.shortDescription, containerHeight: 120.0),
+        child: TaskReviewWidget(title: 'Resumen', description: taskModel!.shortDescription, containerHeight: screenSize.height * 0.2),
       ),
     );
   }
 
-  Widget _buildTaskLongDescriptionCard() {
+  Widget _buildTaskLongDescriptionCard(Size screenSize) {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-        child: TaskReviewWidget(title: 'Descripción General', description: taskModel!.longDescription, containerHeight: 180.0),
+        child: TaskReviewWidget(title: 'Descripción General', description: taskModel!.longDescription, containerHeight: screenSize.height * 0.36),
       ),
     );
   }
 
-  Widget _buildStatusCard() {
+  Widget _buildStatusCard(Size screenSize) {
     return SliverToBoxAdapter(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-        child: TaskReviewWidget(title: 'Estatus', description: taskModel!.status, containerHeight: 110.0),
+        child: TaskReviewWidget(title: 'Estatus', description: taskModel!.status, containerHeight: screenSize.height * 0.16),
       ),
     );
   }
 
-  Widget _buildRowButtons(ThemeData theme) {
+  Widget _buildRowButtons(ThemeData theme, Size screenSize) {
     return SliverToBoxAdapter(
       child: Container(
         width: double.infinity,
@@ -105,10 +107,11 @@ class TaskDetailsPage extends StatelessWidget {
               buttonText: 'Eliminar',
               colorText: theme.colorScheme.background,
               icon: Icons.delete,
-              iconSize: 24.0,
+              iconSize: screenSize.width * 0.09,
               iconColor: theme.colorScheme.background,
-              fontSize: 24.0,
+              fontSize: screenSize.width * 0.07,
               margin: 5.0,
+              width: screenSize.width * 0.45,
               action: () async {
                 final res = await TaskService.instance.deleteTask(taskModel!.id);
 
@@ -134,20 +137,19 @@ class TaskDetailsPage extends StatelessWidget {
                   );
                 }
               },
-              width: 160.0,
             ),
             (taskModel!.idStatus == 2) ?
               TaskButton(
-                backgroundColor: theme.colorScheme.primaryContainer,
+                backgroundColor: theme.colorScheme.primary,
                 buttonText: 'Editar',
                 colorText: theme.colorScheme.background,
                 icon: Icons.edit,
-                iconSize: 24.0,
+                iconSize: screenSize.width * 0.09,
                 iconColor: theme.colorScheme.background,
-                fontSize: 24.0,
+                fontSize: screenSize.width * 0.07,
                 margin: 5.0,
                 action: () => Get.to(() => EditTaskPage(taskModel: taskModel), transition: Transition.leftToRight),
-                width: 160.0,
+                width: screenSize.width * 0.45,
             )
             : Container()
           ],

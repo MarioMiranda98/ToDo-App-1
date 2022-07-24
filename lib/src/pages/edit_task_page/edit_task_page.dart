@@ -26,7 +26,9 @@ class EditTaskPage extends StatelessWidget {
 
   @override 
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     final theme = Theme.of(context);
+
     return GetBuilder<EditTaskController>(
       id: 'edit-fields',
       init: EditTaskController(),
@@ -45,7 +47,7 @@ class EditTaskPage extends StatelessWidget {
                 leading: GestureDetector(
                   child: Icon(
                     Icons.menu,
-                    size: 20.0,
+                    size: screenSize.width * 0.1,
                     color: theme.colorScheme.primary,
                   ),
                   onTap: () => _scaffoldKey.currentState!.openDrawer(),
@@ -54,8 +56,8 @@ class EditTaskPage extends StatelessWidget {
               _buildTaskTitleTextField(),
               _buildTaskShortDescription(),
               _buildTaskLongDescription(),
-              _buildDropDownButton(theme, editTaskController),
-              _buildSaveButton(context, theme, editTaskController)
+              _buildDropDownButton(theme, editTaskController, screenSize),
+              _buildSaveButton(context, theme, editTaskController, screenSize)
             ],
           )
         )
@@ -96,7 +98,7 @@ class EditTaskPage extends StatelessWidget {
     );
   }
 
-  Widget _buildDropDownButton(ThemeData theme, EditTaskController controller) {
+  Widget _buildDropDownButton(ThemeData theme, EditTaskController controller, Size screenSize) {
     controller.status = taskModel!.idStatus;
 
     return SliverToBoxAdapter(
@@ -117,7 +119,7 @@ class EditTaskPage extends StatelessWidget {
               DropdownButton(
                 value: controller.status,
                 dropdownColor: theme.colorScheme.background,
-                items: _buildItems(controller), 
+                items: _buildItems(controller, screenSize), 
                 onChanged: (dynamic value) { 
                   controller.status = value; 
                   _refreshTaskModel(value);
@@ -126,7 +128,7 @@ class EditTaskPage extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Icon(
                     Icons.arrow_downward,
-                    size: 20.0,
+                    size: screenSize.width * 0.07,
                     color: theme.colorScheme.primary,  
                   ),  
                 )
@@ -138,7 +140,7 @@ class EditTaskPage extends StatelessWidget {
     );
   }
 
-  List<DropdownMenuItem> _buildItems(EditTaskController controller) {
+  List<DropdownMenuItem> _buildItems(EditTaskController controller, Size screenSize) {
     List<DropdownMenuItem> items = List.empty(growable: true);
 
     for(StatusModel element in controller.statusList) {
@@ -149,7 +151,7 @@ class EditTaskPage extends StatelessWidget {
           style: TextStyle(
             color: Theme.of(Get.context!).colorScheme.primary,
             fontWeight: FontWeight.w700,
-            fontSize: 20.0
+            fontSize: screenSize.width * 0.07
           ),
         ),
       ));
@@ -158,18 +160,18 @@ class EditTaskPage extends StatelessWidget {
     return items;
   }
   
-  Widget _buildSaveButton(BuildContext context, ThemeData theme, EditTaskController controller) {
+  Widget _buildSaveButton(BuildContext context, ThemeData theme, EditTaskController controller, Size screenSize) {
     return SliverToBoxAdapter(
       child: Container(
         width: double.infinity,
         alignment: Alignment.bottomRight,
         margin: const EdgeInsets.symmetric(vertical: 80.0),
         child: TaskButton(
-          width: 180.0,
+          width: screenSize.width * 0.45,
           buttonText: 'Guardar',
-          fontSize: 24.0,
+          fontSize: screenSize.width * 0.07,
           iconColor: theme.colorScheme.background,
-          iconSize: 40.0,
+          iconSize: screenSize.width * 0.09,
           icon: Icons.save,
           action: () async {
             await Helpers.showModal(context, 
