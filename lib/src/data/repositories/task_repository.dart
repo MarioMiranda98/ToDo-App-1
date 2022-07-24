@@ -41,4 +41,12 @@ class TaskRepository {
 
     return ResponseDataBaseModel(data: res, isEmpty: !(res.length > 0));
   }
+
+  Future<int> deleteTask(int id) async {
+    return await GenericCrudRepository.instance.deleteOne(
+      tableName: DataBaseTablesEnums.TASK.tableName,
+      where: 'id = ?',
+      args: [id]
+    );
+  }
 }

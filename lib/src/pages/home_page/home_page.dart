@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    Get.put(HomePageController(), permanent: true);
     return SafeArea(
         child: Scaffold(
           key: _scaffoldKey,
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
           backgroundColor: theme.colorScheme.background,
-          drawer: TaskDrawer(),
+          drawer: TaskDrawer(currentPage: 'home_page'),
         ),
     );
   }
@@ -114,7 +115,7 @@ class HomePage extends StatelessWidget {
   Widget _buildMainList() {
     return GetBuilder<HomePageController>(
       id: 'home-page-body',
-      init: HomePageController(),
+      init: HomePageController(), 
       builder:  (homePageController) => SliverList(
         delegate: SliverChildBuilderDelegate( 
           (BuildContext context, int index) {

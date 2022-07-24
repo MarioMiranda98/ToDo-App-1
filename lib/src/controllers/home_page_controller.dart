@@ -19,8 +19,15 @@ class HomePageController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onReady() {
+    getAllTasks();
+    super.onReady();
+  }
+
   Future<void> getAllTasks() async {
     final res = await TaskService.instance.getAllTasksCustom();
+    _tasks.clear();
     _tasks.addAll(res ?? []);
 
     update(['home-page-body']);

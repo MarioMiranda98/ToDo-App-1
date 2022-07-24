@@ -38,6 +38,7 @@ class CreateTaskController extends GetxController {
       if(res > 0) {
         await Helpers.showModal(Get.context!, 
           action: () {
+            Get.deleteAll(force: true);
             Get.offAll(() => HomePage(), transition: Transition.upToDown);
           },
           modalText: 'La tarea se ha creado con éxito',
@@ -47,6 +48,7 @@ class CreateTaskController extends GetxController {
       } else {
         await Helpers.showModal(Get.context!, 
           action: () {
+            Get.deleteAll(force: true);
             Get.offAll(() => HomePage(), transition: Transition.upToDown);
           },
           modalText: 'Ha ocurrido un error.',

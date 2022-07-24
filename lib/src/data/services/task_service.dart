@@ -65,4 +65,9 @@ class TaskService extends TaskInterface {
 
     return tasks;
   }
+
+  @override 
+  Future<int> deleteTask(int id) async {
+    return await TaskRepository.instance.deleteTask(id);
+  }
 }

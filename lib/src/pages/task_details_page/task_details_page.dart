@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+import 'package:to_do_app_1/src/data/enums/image_modal_enum.dart';
+import 'package:to_do_app_1/src/data/services/task_service.dart';
 import 'package:to_do_app_1/src/models/task_model.dart';
+import 'package:to_do_app_1/src/pages/edit_task_page/edit_task_page.dart';
+import 'package:to_do_app_1/src/pages/home_page/home_page.dart';
 import 'package:to_do_app_1/src/pages/task_details_page/widgets/task_review_widget.dart';
+import 'package:to_do_app_1/src/utils/helpers.dart';
 import 'package:to_do_app_1/src/widgets/task_app_bar.dart';
 import 'package:to_do_app_1/src/widgets/task_button.dart';
 import 'package:to_do_app_1/src/widgets/task_drawer.dart';
@@ -103,22 +109,47 @@ class TaskDetailsPage extends StatelessWidget {
               iconColor: theme.colorScheme.background,
               fontSize: 24.0,
               margin: 5.0,
-              action: () => print('Eliminar'),
+              action: () async {
+                final res = await TaskService.instance.deleteTask(taskModel!.id);
+
+                 if(res > 0) {
+                  await Helpers.showModal(Get.context!, 
+                    action: () {
+                      Get.deleteAll(force: true);
+                      Get.offAll(() => HomePage(), transition: Transition.fadeIn);
+                    },
+                    modalText: 'La tarea se ha actualizado con éxito',
+                    isConfirm: false,
+                    assetUrl: ImageModalEnum.SUCCESS.imagePath
+                  );
+                } else {
+                  await Helpers.showModal(Get.context!, 
+                    action: () {
+                      Get.deleteAll(force: true);
+                      Get.offAll(() => HomePage(), transition: Transition.fadeIn);
+                    },
+                    modalText: 'Ha ocurrido un error.',
+                    isConfirm: false,
+                    assetUrl: ImageModalEnum.FAILED.imagePath
+                  );
+                }
+              },
               width: 160.0,
             ),
-            TaskButton(
-              backgroundColor: theme.colorScheme.primaryContainer,
-              buttonText: 'Editar',
-              colorText: theme.colorScheme.background,
-              icon: Icons.edit,
-              iconSize: 24.0,
-              iconColor: theme.colorScheme.background,
-              fontSize: 24.0,
-              margin: 5.0,
-              //action: () => Get.to(() => EditTaskPage(taskModel: taskModel), transition: Transition.leftToRight),
-              action: () => print(taskModel!.id),
-              width: 160.0,
+            (taskModel!.idStatus == 2) ?
+              TaskButton(
+                backgroundColor: theme.colorScheme.primaryContainer,
+                buttonText: 'Editar',
+                colorText: theme.colorScheme.background,
+                icon: Icons.edit,
+                iconSize: 24.0,
+                iconColor: theme.colorScheme.background,
+                fontSize: 24.0,
+                margin: 5.0,
+                action: () => Get.to(() => EditTaskPage(taskModel: taskModel), transition: Transition.leftToRight),
+                width: 160.0,
             )
+            : Container()
           ],
         ),
       ),

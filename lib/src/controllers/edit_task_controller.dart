@@ -63,16 +63,14 @@ class EditTaskController extends GetxController {
     if(isValidForm) { 
       final body = TaskModel.fromJson(taskForm);
       final res = await TaskService.instance.updateTask(
-        body: body.toJson(),
-        args: [1]
+        body: body.toJsonWithoutId(),
+        args: [taskForm['id']]
       );
 
-      print(body.toJson());
-      print(res);
       if(res > 0) {
         await Helpers.showModal(Get.context!, 
           action: () {
-            Get.deleteAll();
+            Get.deleteAll(force: true);
             Get.offAll(() => HomePage(), transition: Transition.fadeIn);
           },
           modalText: 'La tarea se ha actualizado con éxito',
@@ -82,7 +80,7 @@ class EditTaskController extends GetxController {
       } else {
         await Helpers.showModal(Get.context!, 
           action: () {
-            Get.deleteAll();
+            Get.deleteAll(force: true);
             Get.offAll(() => HomePage(), transition: Transition.fadeIn);
           },
           modalText: 'Ha ocurrido un error.',
