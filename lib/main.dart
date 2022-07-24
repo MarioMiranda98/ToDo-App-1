@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:to_do_app_1/src/pages/home_page/home_page.dart';
+import 'package:to_do_app_1/src/pages/splash_screen_page.dart';
 import 'package:to_do_app_1/src/utils/to_do_theme.dart';
 
 void main() {
@@ -11,7 +11,7 @@ void main() {
       title: 'ToDo App',
       debugShowCheckedModeBanner: false,
       theme: ToDoTheme.lightTheme,
-      home: HomePage()
+      home: SplashScreenPage()
     )
   );
 
