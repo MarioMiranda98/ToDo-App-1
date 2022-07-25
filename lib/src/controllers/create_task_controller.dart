@@ -8,20 +8,30 @@ import 'package:to_do_app_1/src/utils/helpers.dart';
 import 'package:to_do_app_1/src/utils/validators.dart';
 
 class CreateTaskController extends GetxController {
+  DateTime? _date;
+
+  DateTime? get date => _date;
+  
+  set date(value) {
+    _date = value;
+  }
+  
   Future<void> validateTaskInputs(Map<String, dynamic> taskForm) async {
     bool isValidForm = true;
-    List<dynamic> signInValidations = List.empty(growable: true);
+    List<dynamic> taskFormValidations = List.empty(growable: true);
 
     final validateTaskTitle = Validators.taskTitleValidator(taskForm['title']);
-    signInValidations.add(validateTaskTitle);
+    taskFormValidations.add(validateTaskTitle);
     final validateTaskShortDescription = Validators.taskShortDescriptionValidator(taskForm['short_description']);
-    signInValidations.add(validateTaskShortDescription);
+    taskFormValidations.add(validateTaskShortDescription);
     final validateTaskLongDescription = Validators.taskLongDescriptionValidator(taskForm['long_description']);
-    signInValidations.add(validateTaskLongDescription);
+    taskFormValidations.add(validateTaskLongDescription);
+    final validateTaskDate = Validators.taskDateValidator(taskForm['date']);
+    taskFormValidations.add(validateTaskDate);
 
-    for(int i = 0; i < signInValidations.length; i++) {
-      if(signInValidations[i] != null) {
-        Helpers.openSnackBar('Error', signInValidations[i]);
+    for(int i = 0; i < taskFormValidations.length; i++) {
+      if(taskFormValidations[i] != null) {
+        Helpers.openSnackBar('Error', taskFormValidations[i]);
         isValidForm = false;
         break;
       }

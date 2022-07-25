@@ -30,4 +30,12 @@ abstract class Validators {
 
     return null;
   }
+
+  static String? taskDateValidator(String date) {
+    if(date.isEmpty){
+      return TaskEnums.dateIsNotSelected.taskError;
+    }
+
+    return null;
+  }
 }

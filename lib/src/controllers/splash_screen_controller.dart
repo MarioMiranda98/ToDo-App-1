@@ -11,7 +11,7 @@ class SplashScreenController extends GetxController {
 
   void _goToLoginPage() async {
     Future.delayed(const Duration(seconds: 3), () {
-      Get.off(HomePage(), transition: Transition.cupertino);
+      Get.off(() => HomePage(), transition: Transition.cupertino);
     });
   }
 }

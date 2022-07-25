@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class TaskTextField extends StatelessWidget {
   final String textFieldTitle;
   final TextEditingController? controller;
+  final bool enabled;
   
   // ignore_for_file: prefer_const_constructors_in_immutables
   TaskTextField({
     this.textFieldTitle = 'Input Text',
     this.controller,
+    this.enabled = true,
     Key? key
   }): super(key: key);
 
@@ -21,6 +23,7 @@ class TaskTextField extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       child: TextField(
+        enabled: enabled,
         textInputAction: TextInputAction.next,
         controller: controller,
         decoration: InputDecoration(

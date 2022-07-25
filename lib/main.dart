@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 import 'package:to_do_app_1/src/pages/splash_screen_page.dart';
@@ -11,7 +12,15 @@ void main() {
       title: 'ToDo App',
       debugShowCheckedModeBanner: false,
       theme: ToDoTheme.lightTheme,
-      home: SplashScreenPage()
+      home: SplashScreenPage(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('es', 'ES'),
+        Locale('en', 'US'),
+      ],
     )
   );
 

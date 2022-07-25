@@ -4,6 +4,7 @@ const kCreateTaskTable =
   ' title VARCHAR(50) NOT NULL,'
   ' short_description VARCHAR(50) NOT NULL,'
   ' long_description VARCHAR(200) NOT NULL,'
+  ' date DATETIME NOT NULL,'
   ' id_status int NOT NULL,'
   ' CONSTRAINT fk_status FOREIGN KEY (id_status) REFERENCES status(id)'
   ' ON DELETE CASCADE'

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
+
 import 'package:to_do_app_1/src/widgets/task_modal.dart';
 
 class Helpers {
@@ -39,5 +41,29 @@ class Helpers {
           actionCancel: actionCancel,
         )
       );
+  }
+
+   static Future<DateTime?> buildDatePicker(BuildContext context, ThemeData theme) async {
+    return await showRoundedDatePicker(
+        context: context,
+        initialDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1),
+        firstDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1),
+        lastDate: DateTime(DateTime.now().year + 10000),
+        borderRadius: 16,
+        theme: theme,
+        locale: const Locale('es', 'ES'),
+    );
+  }
+
+  static String formatDate(String date) {
+    String formatedDate = '';  
+    final splitedDate = date.split('-');
+
+    for(int i = splitedDate.length - 1; i >= 0; i--) {
+      if(i == 0) { formatedDate += splitedDate[i]; }
+      else { formatedDate += '${splitedDate[i]}-'; }
+    }
+
+    return formatedDate;
   }
 }

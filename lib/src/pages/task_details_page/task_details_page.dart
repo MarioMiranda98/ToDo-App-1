@@ -50,6 +50,7 @@ class TaskDetailsPage extends StatelessWidget {
             _buildTaskTitleCard(screenSize),
             _buildTaskShortDescriptionCard(screenSize),
             _buildTaskLongDescriptionCard(screenSize),
+            _buildTaskDateCard(screenSize),
             _buildStatusCard(screenSize),
             _buildRowButtons(theme, screenSize)
           ],
@@ -81,6 +82,15 @@ class TaskDetailsPage extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
         child: TaskReviewWidget(title: 'Descripción General', description: taskModel!.longDescription, containerHeight: screenSize.height * 0.36),
+      ),
+    );
+  }
+
+   Widget _buildTaskDateCard(Size screenSize) {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        child: TaskReviewWidget(title: 'Fecha Acordada', description: taskModel!.date, containerHeight: screenSize.height * 0.18),
       ),
     );
   }
@@ -121,7 +131,7 @@ class TaskDetailsPage extends StatelessWidget {
                       Get.deleteAll(force: true);
                       Get.offAll(() => HomePage(), transition: Transition.fadeIn);
                     },
-                    modalText: 'La tarea se ha actualizado con éxito',
+                    modalText: 'La tarea se ha eliminado con éxito',
                     isConfirm: false,
                     assetUrl: ImageModalEnum.success.imagePath
                   );

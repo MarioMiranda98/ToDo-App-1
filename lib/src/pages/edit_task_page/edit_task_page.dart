@@ -17,6 +17,7 @@ class EditTaskPage extends StatelessWidget {
   final TextEditingController _taskTitleController = TextEditingController();
   final TextEditingController _taskShortDescriptionController = TextEditingController();
   final TextEditingController _taskLongDescriptionController = TextEditingController();
+  final TextEditingController _taskDateController = TextEditingController();
   final TaskModel? taskModel;
 
   EditTaskPage({
@@ -56,6 +57,7 @@ class EditTaskPage extends StatelessWidget {
               _buildTaskTitleTextField(),
               _buildTaskShortDescription(),
               _buildTaskLongDescription(),
+              _buildDateField(context, theme),
               _buildDropDownButton(theme, editTaskController, screenSize),
               _buildSaveButton(context, theme, editTaskController, screenSize)
             ],
@@ -94,6 +96,30 @@ class EditTaskPage extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 25.0),
         child: TaskMultilineTextField(textFieldTitle: 'Descripción Especifica', controller: _taskLongDescriptionController),
+      ),
+    );
+  }
+
+   Widget _buildDateField(BuildContext context, ThemeData theme) {
+    _taskDateController.text = taskModel!.date;
+
+    return SliverToBoxAdapter(
+      child: GestureDetector(
+        onPanDown: (_) => FocusScope.of(context).requestFocus(FocusNode()),
+        onTap: () async { 
+          final aux = await Helpers.buildDatePicker(context, theme);
+          if(aux != null) {
+            final date = Helpers.formatDate(aux.toString().split(' ')[0]);
+            _taskDateController.text = date;
+            taskModel!.date = date;
+          } else {
+            _taskDateController.text = '';
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 25.0),
+          child: TaskTextField(textFieldTitle: 'Fecha Acordada (Tap aquí)', controller: _taskDateController, enabled: false),
+        ),
       ),
     );
   }
@@ -194,7 +220,8 @@ class EditTaskPage extends StatelessWidget {
                 'title': _taskTitleController.text,
                 'short_description': _taskShortDescriptionController.text,
                 'long_description': _taskLongDescriptionController.text,
-                'id_status': controller.status
+                'id_status': controller.status,
+                'date': _taskDateController.text
               });
             }
           }
@@ -208,5 +235,6 @@ class EditTaskPage extends StatelessWidget {
     taskModel!.shortDescription = _taskShortDescriptionController.text;
     taskModel!.longDescription = _taskLongDescriptionController.text;
     taskModel!.idStatus = idStatus;
+    taskModel!.date = _taskDateController.text;
   }
 }

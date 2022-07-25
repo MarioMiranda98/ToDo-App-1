@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:to_do_app_1/src/controllers/create_task_controller.dart';
+import 'package:to_do_app_1/src/utils/helpers.dart';
 import 'package:to_do_app_1/src/widgets/task_app_bar.dart';
 import 'package:to_do_app_1/src/widgets/task_button.dart';
 import 'package:to_do_app_1/src/widgets/task_drawer.dart';
@@ -13,6 +14,7 @@ class CreateTaskPage extends StatelessWidget {
   final TextEditingController _taskTitleController = TextEditingController();
   final TextEditingController _taskShortDescriptionController = TextEditingController();
   final TextEditingController _taskLongDescriptionController = TextEditingController();
+  final TextEditingController _taskDateController = TextEditingController();
 
   CreateTaskPage({ Key? key}): super(key: key);
 
@@ -47,10 +49,31 @@ class CreateTaskPage extends StatelessWidget {
               _buildTaskTitleTextField(),
               _buildTaskShortDescription(),
               _buildTaskLongDescription(),
+              _buildDateField(context, theme),
               _buildSaveButton(theme, createTaskController)
             ],
           )
         )
+      ),
+    );
+  }
+
+  Widget _buildDateField(BuildContext context, ThemeData theme) {
+    return SliverToBoxAdapter(
+      child: GestureDetector(
+        onPanDown: (_) => FocusScope.of(context).requestFocus(FocusNode()),
+        onTap: () async { 
+          final aux = await Helpers.buildDatePicker(context, theme);
+          if(aux != null) {
+            _taskDateController.text = Helpers.formatDate(aux.toString().split(' ')[0]);
+          } else {
+            _taskDateController.text = '';
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 25.0),
+          child: TaskTextField(textFieldTitle: 'Fecha Acordada (Tap aquí)', controller: _taskDateController, enabled: false),
+        ),
       ),
     );
   }
@@ -99,7 +122,8 @@ class CreateTaskPage extends StatelessWidget {
             'title': _taskTitleController.text,
             'short_description': _taskShortDescriptionController.text,
             'long_description': _taskLongDescriptionController.text,
-            'id_status': 2
+            'id_status': 2,
+            'date': _taskDateController.text
           }),
         ),
       ),
