@@ -46,8 +46,8 @@ class Helpers {
    static Future<DateTime?> buildDatePicker(BuildContext context, ThemeData theme) async {
     return await showRoundedDatePicker(
         context: context,
-        initialDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1),
-        firstDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 1),
+        initialDate: DateTime.now(),
+        firstDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 3),
         lastDate: DateTime(DateTime.now().year + 10000),
         borderRadius: 16,
         theme: theme,

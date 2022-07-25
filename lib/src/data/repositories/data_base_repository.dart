@@ -34,6 +34,8 @@ class DataBaseRepository {
         await db.execute(kInsertCompletedStatus);
         await db.execute(kInsertPendingStatus);
         await db.execute(kInsertAllStatus);
+        await db.execute(kInsertTodayStatus);
+        await db.execute(kInsertOverdueStatus);
       }
     );
   }

@@ -18,3 +18,5 @@ const kCreateStatusTable =
 const kInsertCompletedStatus = "INSERT INTO status VALUES(1, 'Completada')";
 const kInsertPendingStatus = "INSERT INTO status VALUES(2, 'Pendiente')";
 const kInsertAllStatus = "INSERT INTO status VALUES(3, 'Todo')";
+const kInsertTodayStatus = "INSERT INTO status VALUES(4, 'Para hoy')";
+const kInsertOverdueStatus = "INSERT INTO status VALUES(5, 'Vencidas')";

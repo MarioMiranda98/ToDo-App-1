@@ -11,5 +11,9 @@ abstract class TaskInterface {
 
   Future<List<TaskModel>?> getTaskByFilter(int status);
 
+  Future<List<TaskModel>?> getTasksByDate();
+
+  Future<List<TaskModel>?> getTasksByOverdueDate();
+
   Future<int> deleteTask(int id);
 }

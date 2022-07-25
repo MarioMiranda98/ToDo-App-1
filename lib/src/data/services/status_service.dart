@@ -22,9 +22,9 @@ class StatusService extends StatusInterface {
   }
   
   @override
-  Future<List<StatusModel>?> getStatusWithoutAll() async {
+  Future<List<StatusModel>?> getStatusWithoutAllTodayAndOverdue() async {
     List<StatusModel> status = List.empty(growable: true);
-    final res = await StatusRepository.instance.getStatusWithoutAll();
+    final res = await StatusRepository.instance.getStatusWithoutAllTodayAndOverdue();
   
     if(res.isEmpty) return null;
 

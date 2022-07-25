@@ -36,4 +36,22 @@ class HomePageController extends GetxController {
 
     update(['home-page-body']);
   }
+
+  Future<void> getTasksByDate() async {
+    final res = await TaskService.instance.getTasksByDate();
+
+    _tasks.clear();
+    _tasks.addAll(res ?? []);
+
+    update(['home-page-body']);
+  }
+
+  Future<void> getTasksByOverdueDate() async {
+    final res = await TaskService.instance.getTasksByOverdueDate();
+
+    _tasks.clear();
+    _tasks.addAll(res ?? []);
+
+    update(['home-page-body']);
+  }
 }

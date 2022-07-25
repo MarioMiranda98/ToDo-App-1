@@ -29,12 +29,12 @@ class EditTaskController extends GetxController {
 
   @override
   void onInit() {
-    _getStatusWithoutAll();
+    _getStatusWithoutAllTodayAndOverdue();
     super.onInit();
   }
 
-  Future<void> _getStatusWithoutAll() async {
-    final res = await StatusService.instance.getStatusWithoutAll();
+  Future<void> _getStatusWithoutAllTodayAndOverdue() async {
+    final res = await StatusService.instance.getStatusWithoutAllTodayAndOverdue();
     
     _statusList.addAll(res ?? []);
     update(['edit-fields']);

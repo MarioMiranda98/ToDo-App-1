@@ -16,11 +16,11 @@ class StatusRepository {
     return res;
   }
 
-  Future<ResponseDataBaseModel> getStatusWithoutAll() async {
+  Future<ResponseDataBaseModel> getStatusWithoutAllTodayAndOverdue() async {
     final res = await GenericCrudRepository.instance.readFor(
       tableName: DataBaseTablesEnums.status.tableName,
-      where: 'id != ?',
-      args: [3]
+      where: 'id NOT IN (?, ?, ?)',
+      args: [3, 4, 5]
     );
 
     return res;

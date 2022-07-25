@@ -75,8 +75,10 @@ class HomePage extends StatelessWidget {
                   items: _buildItems(statusController, screenSize), 
                   onChanged: (dynamic value) { 
                     final HomePageController homePageController = Get.put(HomePageController());
-                    (value == 3) ? homePageController.getAllTasks()
-                    : homePageController.refreshTaskList(value);
+                    if (value == 3) { homePageController.getAllTasks(); }
+                    else if(value == 4) { homePageController.getTasksByDate(); }
+                    else if(value == 5) { homePageController.getTasksByOverdueDate(); }
+                    else { homePageController.refreshTaskList(value); }
                     statusController.status = value; 
                   },
                   icon: Container(
